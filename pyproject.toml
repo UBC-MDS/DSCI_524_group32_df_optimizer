@@ -18,6 +18,9 @@ version = "0.1.0"
 description = "DSCI524 group project"
 authors = [
     { name = "Wai Yan Lee", email = "vlee98@student.ubc.ca" },
+    { name = "William Chong", email = "will.hh.chong@gmail.com" },
+    { name = "Mohammed Ibrahim", email = "mohammedga1999@gmail.com"},
+    { name = "Roganci Fontelera", email = "roganci03@gmail.com"}
 ]
 license = "MIT"
 requires-python = ">= 3.10" # Adjust based on the minimum version of Python that you support
