@@ -61,9 +61,9 @@ representative at an online or offline event.
 [//]: # (TODO: You need to choose whom and how to contact them.)
 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be
-reported to the community leaders responsible for enforcement at
-\[INSERT CONTACT METHOD\].
+reported to the community leaders responsible for enforcement.
 All complaints will be reviewed and investigated promptly and fairly.
+Reports will be acknowledged within 30 days.
 
 All community leaders are obligated to respect the privacy and security of the
 reporter of any incident.
