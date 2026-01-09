@@ -1,33 +1,42 @@
-# Welcome to Group 32
+# Welcome to Our DataFrame Memory Optimizer
 
-|        |        |
-|--------|--------|
-| Package | [![Latest PyPI Version](https://img.shields.io/pypi/v/group-32.svg)](https://pypi.org/project/group-32/) [![Supported Python Versions](https://img.shields.io/pypi/pyversions/group-32.svg)](https://pypi.org/project/group-32/)  |
-| Meta   | [![Code of Conduct](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](CODE_OF_CONDUCT.md) |
+This is a collaborative project developed as part of DSCI 524: Collaborate Softwware Development. 
 
-*TODO: the above badges that indicate python version and package version will only work if your package is on PyPI.
-If you don't plan to publish to PyPI, you can remove them.*
+## Project Summary
 
-Group 32 is a project that (describe what it does here).
+DataFrame Memory Optimizer is a lightweight Python package that reduces the memory footprint of pandas DataFrames by automatically selecting more efficient data types. It analyzes each column in a DataFrame and applies safe, transparent optimizations—such as numeric downcasting and categorical conversion—while preserving the original data values. This helps users work more efficiently with large datasets in data analysis, machine learning pipelines, and resource-constrained environments.
 
-## Get started
+## Planned Functions 
 
-You can install this package into your preferred Python environment using pip:
+`optimize_dataframe(df)`
+The main user-facing function that takes a pandas DataFrame and returns an optimized copy with reduced memory usage. It coordinates numeric downcasting, categorical conversion, and reporting, while ensuring the original DataFrame is not modified.
 
-```bash
-$ pip install group-32
-```
+`optimize_numeric(df)`
+Optimizes numeric columns by downcasting integers to the smallest possible integer dtype and optionally converting floating-point columns to lower-precision floats when safe. This targets one of the largest sources of unnecessary memory usage in pandas.
 
-TODO: Add a brief example of how to use the package to this section
+`optimize_categorical(df, max_unique_ratio=0.5)`
+Converts low-cardinality string/object columns to pandas’ category dtype based on a configurable uniqueness threshold. This can significantly reduce memory usage for repeated labels such as statuses, regions, or codes.
 
-To use group-32 in your code:
+`analyze_special_columns(df)`
+Identifies columns that may require special handling, such as ID columns, coordinates, or high-cardinality text fields. This function does not modify data but provides transparency by reporting which columns were optimized and which were intentionally left unchanged.
 
-```python
->>> import group-32
->>> group-32.hello_world()
-```
+## How the package fits in the Python Ecosystem
+
+Pandas provides low-level tools related to memory optimization, such as pd.to_numeric(..., downcast=...), DataFrame.convert_dtypes(), and DataFrame.memory_usage(deep=True). However, these tools require manual orchestration and do not provide a unified, opinionated workflow or clear diagnostics.
+
+DataFrame Memory Optimizer builds on these ideas by combining them into a single, reusable interface that applies consistent heuristics and reports its decisions, making DataFrame memory optimization easier, safer, and more reproducible.
+
+## Contributers
+
+Mohammed Jamal
+
+Roganci Fontelera
+
+Wai Yan Lee
+
+William Chong
 
 ## Copyright
 
-- Copyright © 2026 Wai Yan Lee.
+- Copyright © 2026 UBC MDS.
 - Free software distributed under the [MIT License](./LICENSE).
