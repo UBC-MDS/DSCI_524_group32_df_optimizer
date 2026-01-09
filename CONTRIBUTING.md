@@ -54,15 +54,15 @@ project and everybody has limited time.
 
 ## Get Started!
 
-Ready to contribute? Here's how to set up Group 32 for
+Ready to contribute? Here's how to set up DSCI_524_df_optimizer for
 local development.
 
-1. Fork the https://github.com/UBC-MDS/DSCI_524_group32_df_optimizer/issues
+1. Fork the https://github.com/UBC-MDS/DSCI_524_group32_df_optimizer
    repository on GitHub.
 2. Clone your fork locally (*if you want to work locally*)
 
     ```shell
-    git clone git@github.com:your_name_here/group_32.git
+    git clone git@github.com:UBC-MDS/DSCI_524_group32_df_optimizer.git
     ```
 
 3. [Install hatch](https://hatch.pypa.io/latest/install/).
