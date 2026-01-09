@@ -11,7 +11,7 @@ requires = ["hatchling"]
 ################################################################################
 
 [project]
-name = "group_32"
+name = "DSCI_524_group32_df_optimizer"
 # You can chose to use dynamic versioning with hatch or static where you add it manually.
 version = "0.1.0"
 
@@ -39,10 +39,10 @@ keywords = []
 dependencies = []
 
 [project.urls]
-Homepage = "https://github.com/vlee98p/group-32"
-"Source Code" = "https://github.com/vlee98p/group-32"
-"Bug Tracker" = "https://github.com/vlee98p/group-32/issues"
-Documentation = "https://github.com/vlee98p/group-32/blob/main/README.md"
+Homepage = "https://github.com/UBC-MDS/DSCI_524_group32_df_optimizer"
+"Source Code" = "https://github.com/UBC-MDS/DSCI_524_group32_df_optimizer"
+"Bug Tracker" = "https://github.com/UBC-MDS/DSCI_524_group32_df_optimizer/issues"
+Documentation = "https://github.com/UBC-MDS/DSCI_524_group32_df_optimizer/blob/main/README.md"
 Download = "https://pypi.org/project/group-32/#files"
 
 [project.optional-dependencies]

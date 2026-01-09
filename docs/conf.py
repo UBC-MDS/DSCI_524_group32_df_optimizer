@@ -14,7 +14,7 @@ current_year = datetime.now().year
 
 # -- General project information -----------------------------
 # General information about the project.
-project = "Group 32"
+project = "Dsci_524_group_32_df_optimizer"
 copyright = "Copyright © 2026 Wai Yan Lee"
 html_show_sphinx = False
 
