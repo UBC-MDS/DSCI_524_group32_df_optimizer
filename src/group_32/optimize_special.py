@@ -47,4 +47,40 @@ def _analyze_special_columns(df: pd.DataFrame):
       :memo: = Text Entity
       :1234: = Categorical/Ordinal
     - Detection heuristics may not catch all special cases; review output carefully
+
+    Examples
+    --------
+    >>> import pandas as pd
+    >>> df = pd.DataFrame({
+    ...     'customer_id': range(1000),  # unique IDs
+    ...     'latitude': [37.7749] * 1000,
+    ...     'longitude': [-122.4194] * 1000,
+    ...     'full_name': [f'Person {i}' for i in range(1000)],  # high cardinality text
+    ...     'membership_level': pd.Categorical(['gold', 'silver', 'bronze'] * 333 + ['gold'])
+    ... })
+    >>> 
+    >>> _analyze_special_columns(df)
+    
+    --- Special Column Analysis ---
+    📌 customer_id: Identified as potential **Unique ID**. High cardinality (not optimized to 'category').
+    🌍 latitude: Identified as **Latitude/Longitude**. Already optimized to a float dtype.
+    🌍 longitude: Identified as **Latitude/Longitude**. Already optimized to a float dtype.
+    📝 full_name: Identified as **Text Entity (Name/Address)**. Stays as string/object due to high variability.
+    🔢 membership_level: **Categorical/Ordinal** (Type is 'category').
+    
+    >>> # Another example with different patterns
+    >>> df2 = pd.DataFrame({
+    ...     'uuid': ['a1b2c3'] * 500 + ['d4e5f6'] * 500,
+    ...     'order_key': range(1000),
+    ...     'lat': [40.7128] * 1000,
+    ...     'delivery_address': [f'{i} Main St' for i in range(1000)]
+    ... })
+    >>> 
+    >>> _analyze_special_columns(df2)
+    
+    --- Special Column Analysis ---
+    📌 order_key: Identified as potential **Unique ID**. High cardinality (not optimized to 'category').
+    🌍 lat: Identified as **Latitude/Longitude**. Already optimized to a float dtype.
+    📝 delivery_address: Identified as **Text Entity (Name/Address)**. Stays as string/object due to high variability.
+    
     """
