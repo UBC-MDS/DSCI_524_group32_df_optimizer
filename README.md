@@ -28,7 +28,7 @@ DataFrame Memory Optimizer builds on these ideas by combining them into a single
 
 ## Contributers
 
-Mohammed Jamal
+Mohammed Ibrahim
 
 Roganci Fontelera
 
