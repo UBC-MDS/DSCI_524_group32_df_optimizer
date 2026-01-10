@@ -31,11 +31,39 @@ def optimize_numeric(df: pd.DataFrame) -> pd.DataFrame:
     pd.DataFrame
         The DataFrame with optimized numeric column dtypes.
 
+        Examples
+    --------
+    >>> import pandas as pd
+    >>> import numpy as np
+    >>>
+    >>> df = pd.DataFrame({
+    ...     "int_col": np.array([1, 2, 3], dtype=np.int64),
+    ...     "big_int_col": np.array([1000, 2000, 3000], dtype=np.int64),
+    ...     "float_col": np.array([0.1, 0.2, 0.3], dtype=np.float64),
+    ...     "non_numeric": ["a", "b", "c"]
+    ... })
+    >>>
+    >>> df.dtypes
+    int_col          int64
+    big_int_col      int64
+    float_col      float64
+    non_numeric     object
+    dtype: object
+    >>>
+    >>> optimized_df = optimize_numeric(df)
+    >>> optimized_df.dtypes
+    int_col            int8
+    big_int_col       int16
+    float_col       float32
+    non_numeric       object
+    dtype: object
+
     Notes
     -----
     - Uses 'errors=ignore' to skip columns that cannot be safely downcast.
     - Float downcasting from float64 to float32 may introduce minor precision loss.
     - Integer downcasting is lossless when values fit in the target range.
     - Prints confirmation message upon successful completion.
+    
     """
     pass
