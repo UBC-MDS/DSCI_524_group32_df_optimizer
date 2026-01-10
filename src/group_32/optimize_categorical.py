@@ -21,6 +21,42 @@ def optimize_categorical(df: pd.DataFrame, max_unique_ratio: float = 0.5) -> pd.
     pd.DataFrame
         The DataFrame with eligible string columns converted to category dtype.
 
+    Example
+    -------
+    >>> import pandas as pd
+    >>> data = {
+        'user_id': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        'name': ['Alice', 'Bobby', 'Charles', 'Ally', 'Bob', 'Charlie', 'David', 'Alex', 'Ben', 'Cherry'],
+        'city': ['NYC', 'LA', 'NYC', 'Chicago', 'LA', 'NYC', 'LA', 'Chicago', 'NYC', 'LA'],
+        'status': ['active', 'inactive', 'active', 'active', 'inactive', 'active', 'inactive', 'active', 'active', 'inactive']}
+    >>> df = pd.DataFrame(data)
+    >>> df.dtypes
+    user_id  int64
+    name     object
+    city     object
+    status   object
+    dtype: object
+    
+    >>> optimized_df = optimize_categorical(df, max_unique_ratio=0.5)
+    >>> optimized_df.dtypes
+    user_id  int64
+    name     object
+    city     category
+    status   category
+    dtype: object
+    
+    >>> optimized_df.info()
+    <class 'pandas.core.frame.DataFrame'>
+    RangeIndex: 10 entries, 0 to 9
+    Data columns (total 4 columns):
+     #   Column  Non-Null Count  Dtype   
+    ---  ------  --------------  -----   
+     0   user_id 10 non-null    int64
+     1   name    10 non-null    object
+     2   city    10 non-null    category
+     3   status  10 non-null    category   
+    dtypes: category(2), int64(1), object(1)
+
     Notes
     -----
     - Only processes columns with 'object' dtype (typically strings)
