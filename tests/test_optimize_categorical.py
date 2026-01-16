@@ -24,26 +24,35 @@ def test_optimize_categorical_converts_low_cardinality_object_columns(sample_dat
 
     # city: 3 unique / 10 = 0.3 -> convert
     assert str(output["city"].dtype) == "category"
+
     # status: 2 unique / 10 = 0.2 -> convert
     assert str(output["status"].dtype) == "category"
+
     # name: 10 unique / 10 = 1.0 -> do NOT convert
     assert output["name"].dtype == object
+
     # non-object stays unchanged
-    assert output["user_id"].dtype == output["user_id"].dtype
+    assert sample_data["user_id"].dtype == output["user_id"].dtype
 
 
-# def test_optimize_categorical_respects_threshold():
-#     df = pd.DataFrame(
-#         {
-#             "id": ["A", "B", "A", "C", "B", "D", "E", "F", "G", "H"],  # 8 unique / 10 = 0.8
-#         }
-#     )
+def test_optimize_categorical_threshold():
+    df = pd.DataFrame(
+        {
+            "id": ["A", "B", "A", "C", "B", "D", "E", "F", "G", "H"],  # 8 unique / 10 = 0.8
+            "hours": [23, 40, 12, 77, 85, 12, 64, 64, 46, 37.5],
+            "company": ["Comp_A", "Comp_R", "Comp_A", "Comp_D", "Comp_G", "Comp_D", "Comp_A", "Comp_G", "Comp_R", "Comp_A"] #4 unique / 10 = 0.4
 
-#     output_low = optimize_categorical(df, max_unique_ratio=0.5)
-#     assert output_low["id"].dtype == object
+        }
+    )
 
-#     output_high = optimize_categorical(df, max_unique_ratio=0.9)
-#     assert str(output_high["id"].dtype) == "category"
+    output_low = optimize_categorical(df, max_unique_ratio=0.5)
+    assert output_low["id"].dtype == object
+
+    output_high = optimize_categorical(df, max_unique_ratio=0.9)
+    assert str(output_high["id"].dtype) == "category"
+
+    output_low2 = optimize_categorical(df, max_unique_ratio=0.2)
+    assert output_low2["id"].dtype == object
 
 
 # def test_optimize_categorical_does_not_mutate_input():
