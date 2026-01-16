@@ -46,7 +46,7 @@ def test_optimize_categorical_threshold():
         }
     )
 
-    df_before = df.copy(deep=True)
+    df_before = df.copy()
     df["brand"] = None
 
     output_low = optimize_categorical(df, max_unique_ratio=0.5)
@@ -74,7 +74,7 @@ def test_optimize_categorical_no_change():
     df = pd.DataFrame(
         {"city": ["NYC", "LA", "NYC", "LA"]}
         )
-    df_before = df.copy(deep=True)
+    df_before = df.copy()
 
     out = optimize_categorical(df, max_unique_ratio=0.8)
 
