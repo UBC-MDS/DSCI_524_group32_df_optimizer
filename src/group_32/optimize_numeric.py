@@ -1,8 +1,6 @@
 import pandas as pd
 
-def optimize_numeric(df: pd.DataFrame) -> pd.DataFrame:
-
-
+def optimize_numeric(df: pd.DataFrame, verbose: bool = True) -> pd.DataFrame:
     """
     Downcast integer and float columns to the smallest suitable numeric dtype.
 
@@ -27,13 +25,15 @@ def optimize_numeric(df: pd.DataFrame) -> pd.DataFrame:
     ----------
     df : pd.DataFrame
         The DataFrame containing numeric columns to be optimized.
+    verbose : bool, default True
+        If True, prints memory usage statistics before and after optimization.
 
     Returns
     -------
     pd.DataFrame
         The DataFrame with optimized numeric column dtypes.
 
-        Examples
+    Examples
     --------
     >>> import pandas as pd
     >>> import numpy as np
@@ -53,6 +53,7 @@ def optimize_numeric(df: pd.DataFrame) -> pd.DataFrame:
     dtype: object
     >>>
     >>> optimized_df = optimize_numeric(df)
+    Memory reduced from 0.XX MB to 0.XX MB (XX.X% reduction)
     >>> optimized_df.dtypes
     int_col            int8
     big_int_col       int16
@@ -62,19 +63,60 @@ def optimize_numeric(df: pd.DataFrame) -> pd.DataFrame:
 
     Notes
     -----
-    - Uses 'errors=ignore' to skip columns that cannot be safely downcast.
+    - Uses try-except to skip columns that cannot be safely downcast.
     - Float downcasting from float64 to float32 may introduce minor precision loss.
     - Integer downcasting is lossless when values fit in the target range.
-    - Prints confirmation message upon successful completion.
+    - Failed conversions are silently skipped, preserving original dtypes.
     """
-    for col in df.select_dtypes(include=['integer']).columns:
-        # Use pd.to_numeric with downcast='integer'
-        df[col] = pd.to_numeric(df[col], downcast='integer')
+    if not isinstance(df, pd.DataFrame):
+        raise TypeError("df must be a pandas DataFrame")
 
-    for col in df.select_dtypes(include=['floating']).columns:
-        # Use pd.to_numeric with downcast='float' (Note: check precision loss)
-        df[col] = pd.to_numeric(df[col], downcast='float')
+    # Calculate initial memory usage
+    initial_memory = df.memory_usage(deep=True).sum()
+    
+    out = df.copy(deep=True)
 
-    print("✅ Numeric columns successfully downcasted.")
-    return df
+    # Process all numeric columns in one pass
+    numeric_cols = out.select_dtypes(include=['int', 'uint', 'float']).columns
+      
+    for col in numeric_cols:
+        try:
+            # Check if integer type
+            if out[col].dtype.kind in ['i', 'u']:  # 'i' for signed int, 'u' for unsigned
+                out[col] = pd.to_numeric(out[col], downcast='integer')
+            # Check if float type
+            elif out[col].dtype.kind == 'f':
+                out[col] = pd.to_numeric(out[col], downcast='float')
+        except Exception:
+            # Silently skip columns that cannot be downcast
+            pass
+
+    # Calculate final memory usage and report
+    if verbose:
+        final_memory = out.memory_usage(deep=True).sum()
+        reduction_pct = ((initial_memory - final_memory) / initial_memory) * 100
+        print(f"Memory reduced from {initial_memory / 1024**2:.2f} MB to "
+              f"{final_memory / 1024**2:.2f} MB ({reduction_pct:.1f}% reduction)")
+
+    return out
+
+
+
+
+
+
+
+
+
+
+    # for col in df.select_dtypes(include=['integer']).columns:
+    #     # Use pd.to_numeric with downcast='integer'
+    #     df[col] = pd.to_numeric(df[col], downcast='integer')
+
+    # for col in df.select_dtypes(include=['floating']).columns:
+    #     # Use pd.to_numeric with downcast='float' (Note: check precision loss)
+    #     df[col] = pd.to_numeric(df[col], downcast='float')
+
+    # print("✅ Numeric columns successfully downcasted.")
+    # return df
 

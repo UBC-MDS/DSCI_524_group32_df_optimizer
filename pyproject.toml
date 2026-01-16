@@ -36,7 +36,10 @@ classifiers = [
 # TODO: add keywords
 keywords = []
 # TODO: add dependencies
-dependencies = []
+dependencies = [
+"pandas>=2.0.0",
+"numpy>=1.24.0",
+    ]
 
 [project.urls]
 Homepage = "https://github.com/UBC-MDS/DSCI_524_group32_df_optimizer"
