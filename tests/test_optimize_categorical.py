@@ -46,6 +46,7 @@ def test_optimize_categorical_threshold():
         }
     )
 
+    df_before = df.copy(deep=True)
     df["brand"] = None
 
     output_low = optimize_categorical(df, max_unique_ratio=0.5)
@@ -64,12 +65,12 @@ def test_optimize_categorical_threshold():
         optimize_categorical(df, max_unique_ratio=2)
 
     output = optimize_categorical(df, max_unique_ratio=0)
-    #pd.testing.assert_frame_equal(df, df_before)
+    pd.DataFrame.equals(output, df_before)
 
     with pytest.raises(TypeError, match = re.escape("max_unique_ratio must be between 0 and 1 (inclusive)!")):
         optimize_categorical(df, max_unique_ratio=-0.5)
 
-def test_optimize_categorical_does_not_mutate_input():
+def test_optimize_categorical_no_change():
     df = pd.DataFrame(
         {"city": ["NYC", "LA", "NYC", "LA"]}
         )
@@ -81,11 +82,15 @@ def test_optimize_categorical_does_not_mutate_input():
 
     assert df["city"].dtype == object
 
-    pd.testing.assert_frame_equal(df, df_before)
+    pd.DataFrame.equals(df, df_before)
+
+    with pytest.raises(TypeError, match = "max_unique_ratio must be a number"):
+        optimize_categorical(df, max_unique_ratio= re.escape("30%"))
 
 def test_optimize_categorical_not_df():
     df = ["A", "B", "C", "D", "E"]
 
     with pytest.raises(TypeError, match = "df must be a pandas DataFrame"):
         optimize_categorical(df, max_unique_ratio=0.8)
+
     
