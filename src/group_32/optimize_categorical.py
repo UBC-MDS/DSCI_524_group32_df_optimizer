@@ -72,7 +72,7 @@ def optimize_categorical(df: pd.DataFrame, max_unique_ratio: float = 0.5) -> pd.
     if not isinstance(df, pd.DataFrame):
         raise TypeError("df must be a pandas DataFrame")
 
-    #
+    #check if threshold input is a int or float or valid
     if not isinstance(max_unique_ratio, (int, float)) or np.isnan(max_unique_ratio):
         raise TypeError("max_unique_ratio must be a number")
 
