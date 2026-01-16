@@ -80,7 +80,7 @@ def optimize_categorical(df: pd.DataFrame, max_unique_ratio: float = 0.5) -> pd.
     if max_unique_ratio < 0 or max_unique_ratio > 1:
         raise TypeError("max_unique_ratio must be between 0 and 1 (inclusive)!")
 
-    df_copy = df.copy(deep=True)
+    df_copy = df.copy()
 
     n_rows = len(df_copy)
     if n_rows == 0:
