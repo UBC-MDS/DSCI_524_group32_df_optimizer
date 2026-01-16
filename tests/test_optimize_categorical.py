@@ -59,13 +59,13 @@ def test_optimize_categorical_threshold():
     output = optimize_categorical(df, max_unique_ratio=0.1)
     assert output["brand"].dtype == object
 
-    #output = optimize_categorical(df, max_unique_ratio=2)
+    output = optimize_categorical(df, max_unique_ratio=2)
     #error
 
-    #output = optimize_categorical(df, max_unique_ratio=0)
+    output = optimize_categorical(df, max_unique_ratio=0)
     #pd.testing.assert_frame_equal(df, df_before)
 
-    #output = optimize_categorical(df, max_unique_ratio=-0.5)
+    output = optimize_categorical(df, max_unique_ratio=-0.5)
     #error
 
 def test_optimize_categorical_does_not_mutate_input():
@@ -85,6 +85,6 @@ def test_optimize_categorical_does_not_mutate_input():
 def test_optimize_categorical_not_df():
     df = ["A", "B", "C", "D", "E"]
 
-    output = optimize_categorical(df, max_unique_ratio=0.8)
-
+    with pytest.raises(TypeError, match = "df must be a pandas DataFrame"):
+        optimize_categorical(df, max_unique_ratio=0.8)
     
