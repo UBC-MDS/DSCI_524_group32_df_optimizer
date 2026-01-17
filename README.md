@@ -1,10 +1,32 @@
 # Welcome to Our DataFrame Memory Optimizer
 
-This is a collaborative project developed as part of DSCI 524: Collaborate Softwware Development. 
+This is a collaborative project developed as part of DSCI 524: Collaborative Software Development. 
 
 ## Project Summary
 
 DataFrame Memory Optimizer is a lightweight Python package that reduces the memory footprint of pandas DataFrames by automatically selecting more efficient data types. It analyzes each column in a DataFrame and applies safe, transparent optimizations such as numeric downcasting and categorical conversion while preserving the original data values. This will allow users to work more efficiently with large datasets in data analysis, machine learning pipelines, and resource-constrained environments.
+
+## Example on how to use our package 
+
+To use the DataFrame Memory Optimizer, start by importing optimize_dataframe from the group_32 package. Pass any pandas DataFrame to this function, and it will return a new optimized copy while leaving the original DataFrame unchanged. The optimizer automatically applies safe numeric downcasting, converts low-cardinality text columns to categorical types, and reports columns that were intentionally left unchanged (such as identifiers or high-cardinality text). The optimized DataFrame behaves the same as the original in downstream analysis, but typically uses less memory.
+
+```python
+import pandas as pd
+from group_32.optimize_dataframe import optimize_dataframe
+
+# Create a simple DataFrame
+df = pd.DataFrame({
+    "region": ["US", "CA", "US", "US"],
+    "quantity": [1, 2, 3, 4],
+    "price": [10.5, 12.0, 9.99, 11.25]
+})
+
+# Optimize memory usage
+optimized_df = optimize_dataframe(df)
+
+# Inspect optimized dtypes
+print(optimized_df.dtypes)
+```
 
 ## Planned Functions 
 
@@ -28,7 +50,7 @@ Pandas provides low-level tools related to memory optimization, such as pd.to_nu
 
 DataFrame Memory Optimizer builds on these ideas by combining them into a single, reusable interface that applies consistent heuristics and reports its decisions, making DataFrame memory optimization easier, safer, and more reproducible.
 
-## Contributers
+## Contributors
 
 Mohammed Ibrahim
 
