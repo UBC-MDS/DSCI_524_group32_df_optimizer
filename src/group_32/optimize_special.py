@@ -1,4 +1,6 @@
-def optimize_special(df: pd.DataFrame):
+import pandas as pd
+
+def optimize_special(df: pd.DataFrame)-> None:
     """
     Identify and report columns requiring special handling based on content patterns.
 
@@ -59,7 +61,7 @@ def optimize_special(df: pd.DataFrame):
     ...     'membership_level': pd.Categorical(['gold', 'silver', 'bronze'] * 333 + ['gold'])
     ... })
     >>> 
-    >>> _analyze_special_columns(df)
+    >>> optimize_special(df)
     
     --- Special Column Analysis ---
     customer_id: Identified as potential **Unique ID**. High cardinality (not optimized to 'category').
@@ -76,7 +78,7 @@ def optimize_special(df: pd.DataFrame):
     ...     'delivery_address': [f'{i} Main St' for i in range(1000)]
     ... })
     >>> 
-    >>> _analyze_special_columns(df2)
+    >>> optimize_special(df2)
     
     --- Special Column Analysis ---
     order_key: Identified as potential **Unique ID**. High cardinality (not optimized to 'category').
@@ -84,3 +86,54 @@ def optimize_special(df: pd.DataFrame):
     delivery_address: Identified as **Text Entity (Name/Address)**. Stays as string/object due to high variability.
     
     """
+    #Check input type is pd.DataFrame
+    if not isinstance(df, pd.DataFrame):
+        raise TypeError("df must be a pandas DataFrame")
+    
+
+    print("\n--- Special Column Analysis ---")
+
+   #Check if it contains data
+    n_rows = len(df)
+    if n_rows == 0:
+        print("(DataFrame is empty)")
+        return
+   
+
+    # Common patterns for IDs/keys (case-insensitive)
+    id_regex = re.compile(r"(?:^|_)(id|uuid|key)(?:$|_)", flags=re.IGNORECASE)
+
+    # Coordinate names
+    coord_names = {"lat", "latitude", "lon", "long", "longitude"}
+
+
+    for col in df.columns:
+        name = str(col)
+        s = df[col]
+
+        # Category dtype
+        if pd.api.types.is_categorical_dtype(s):
+            print(f"<Categorical/Ordinal> {name}: **Categorical/Ordinal** (Type is 'category').")
+            continue
+
+        # Coordinates: based on column name
+        if name.strip().lower() in coord_names:
+            print(f"<Coordinates> {name}: Identified as **Latitude/Longitude**. Already optimized to a float dtype (if numeric optimization was run).")
+            continue
+
+        # Cardinality heuristics
+        nunique = s.nunique(dropna=False)
+        uniq_ratio = nunique / n_rows
+
+        # Unique ID: name pattern + high cardinality
+        if id_regex.search(name) and uniq_ratio >= 0.9:
+            print(f"<Unique ID> {name}: Identified as potential **Unique ID**. High cardinality (not optimized to 'category').")
+            continue
+
+        # Text entity: object dtype + high cardinality (but not an ID)
+        if pd.api.types.is_object_dtype(s) and (uniq_ratio > 0.5) and (not id_regex.search(name)):
+            print(f"<Text Entity> {name}: Identified as **Text Entity (Name/Address)**. Stays as string/object due to high variability.")
+            continue
+
+    # No return value by design
+    return None
