@@ -2,12 +2,10 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from DSCI_524_group32_df_optimizer.optimizer import (
-    optimize_categorical,
-    optimize_numeric,
-    optimize_dataframe,
-    optimize_special,
-)
+from group_32.optimize_categorical import optimize_categorical
+from group_32.optimize_numeric import optimize_numeric
+from group_32.optimize_dataframe import optimize_dataframe
+from group_32.optimize_special import optimize_special
 
 
 def test_optimize_dataframe_wrapper_applies_numeric_and_categorical_and_runs_analysis(capsys):

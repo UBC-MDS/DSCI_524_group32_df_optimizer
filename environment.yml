@@ -1,0 +1,22 @@
+name: dsci-524-group32
+channels:
+  - conda-forge
+dependencies:
+  # core interpreter
+  - python=3.12
+  - pip
+
+  # testing & dev tooling
+  - pytest
+  - pytest-cov
+
+  # packaging / build tools
+  - build
+  - hatch
+  - twine
+  - wheel
+
+  # install this package in editable mode
+  # so that our package is automatically installed in the env, no need to run pip install -e .
+  - pip:
+      - -e .
