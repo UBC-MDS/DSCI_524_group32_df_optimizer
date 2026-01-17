@@ -1,9 +1,5 @@
 from __future__ import annotations
 
-import re
-from typing import Optional
-
-import numpy as np
 import pandas as pd
 
 from .optimize_numeric import optimize_numeric
