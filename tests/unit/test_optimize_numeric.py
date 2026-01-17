@@ -340,3 +340,48 @@ def test_inf_values_in_floats():
     assert np.isinf(result["float_col"]).sum() == 2
     assert result["float_col"].iloc[1] == np.inf
     assert result["float_col"].iloc[2] == -np.inf
+
+
+def test_optimize_numeric_negative_integers_verbose(capsys):
+    """
+    Test that optimize_numeric handles negative integers correctly
+    and produces verbose output when verbose=True.
+    """
+    # Create a DataFrame with negative int64 values
+    df = pd.DataFrame({
+        "neg_int": np.array([-10, -20, -30], dtype=np.int64)
+    })
+    
+    # Call optimize_numeric with verbose=True
+    result = optimize_numeric(df, verbose=True)
+    
+    # Capture the printed output
+    captured = capsys.readouterr()
+    
+    # Assertions
+    assert "Memory reduced from" in captured.out, "Expected verbose message not found in output"
+    assert "reduction)" in captured.out, "Expected reduction percentage not found in output"
+    
+    # Additional assertions to verify the optimization worked
+    assert "neg_int" in result.columns, "Column 'neg_int' missing from result"
+    
+    # Verify the data type was optimized (should be int8 since values fit in that range)
+    assert result["neg_int"].dtype in [np.int8, np.int16, np.int32, np.int64], \
+        f"Expected integer dtype, got {result['neg_int'].dtype}"
+    
+    # Verify values are preserved
+    assert result["neg_int"].tolist() == [-10, -20, -30], \
+        "Values were not preserved during optimization"
+    
+    # Print captured output for debugging
+    print("\n--- Captured Verbose Output ---")
+    print(captured.out)
+    print("--- End of Captured Output ---\n")
+    
+    # Verify the dtype is smaller than original if possible
+    original_dtype = df["neg_int"].dtype
+    optimized_dtype = result["neg_int"].dtype
+    
+    print(f"Original dtype: {original_dtype}")
+    print(f"Optimized dtype: {optimized_dtype}")
+    print(f"Memory saved: {df.memory_usage(deep=True).sum() - result.memory_usage(deep=True).sum()} bytes")
