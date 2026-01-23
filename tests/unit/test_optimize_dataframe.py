@@ -104,7 +104,7 @@ def test_optimize_dataframe_preserves_values(capsys):
     # Values should match original
     pd.testing.assert_series_equal(out["quantity"].astype("int64"), df["quantity"], check_names=True)
     np.testing.assert_allclose(out["price"].to_numpy(), df["price"].to_numpy(), rtol=1e-6, atol=1e-8)
-    pd.testing.assert_series_equal(out["region"].astype("object"), df["region"], check_names=True)
+    pd.testing.assert_series_equal(out["region"].astype("string"), df["region"].astype("string"), check_names=True)
 
 
 def test_optimize_dataframe_calls_helpers(monkeypatch, df_mixed, capsys):
