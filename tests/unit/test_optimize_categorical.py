@@ -1,10 +1,8 @@
-
 from group_32.optimize_categorical import optimize_categorical
+
 import pandas as pd
 import pytest
 import re
-
-@pytest.fixture
 
 def test_optimize_categorical_converts_columns(capsys):
 
@@ -26,7 +24,7 @@ def test_optimize_categorical_converts_columns(capsys):
     assert str(output["status"].dtype) == "category"
 
     # Test that other columns remain unchanged
-    assert output["name"].dtype == object
+    assert not pd.api.types.is_categorical_dtype(output["name"])
     assert df["user_id"].dtype == output["user_id"].dtype
     assert df["score"].dtype == output["score"].dtype
     assert df["binary_flag"].dtype == output["binary_flag"].dtype
@@ -63,16 +61,16 @@ def test_optimize_categorical_threshold():
 
     #Test different thresholds
     output_low = optimize_categorical(df, max_unique_ratio=0.5)
-    assert output_low["id"].dtype == object
+    assert not pd.api.types.is_categorical_dtype(output_low["id"])
 
     output_high = optimize_categorical(df, max_unique_ratio=0.9)
     assert str(output_high["id"].dtype) == "category"
 
     output_low2 = optimize_categorical(df, max_unique_ratio=0.2)
-    assert output_low2["id"].dtype == object
+    assert not pd.api.types.is_categorical_dtype(output_low2["id"])
 
     output1 = optimize_categorical(df, max_unique_ratio=0.1)
-    assert output1["brand"].dtype == object
+    assert not pd.api.types.is_categorical_dtype(output1["brand"])
 
     #threshold > 1 -> error
     with pytest.raises(TypeError, match = re.escape("max_unique_ratio must be between 0 and 1 (inclusive)!")):

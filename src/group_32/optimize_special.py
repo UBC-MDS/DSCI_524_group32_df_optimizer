@@ -141,8 +141,10 @@ def optimize_special(df: pd.DataFrame) -> None:
             continue
 
         # Check 4: High-cardinality text column
-        if (pd.api.types.is_object_dtype(series) and 
-            unique_ratio > HIGH_CARDINALITY_THRESHOLD and 
+        is_text = (pd.api.types.is_object_dtype(series) or pd.api.types.is_string_dtype(series))
+
+        if (is_text and
+            unique_ratio > HIGH_CARDINALITY_THRESHOLD and
             not id_regex.search(col_name)):
             print(f"{col_name}: Identified as high-cardinality text column.")
             continue

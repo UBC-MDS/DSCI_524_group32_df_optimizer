@@ -1,4 +1,3 @@
-import numpy as np
 import pandas as pd
 import pytest
 from group_32.optimize_special import optimize_special
@@ -58,7 +57,7 @@ def test_optimize_special_unique_id_branch_high_cardinality(capsys):
 
 
 def test_optimize_special_text_entity_branch_high_cardinality_object(capsys):
-    # Triggers: object dtype + unique_ratio > 0.5 + not matching id_regex
+    # Triggers: object dtype (object or string) + unique_ratio > 0.5 + not matching id_regex
     df = pd.DataFrame(
         {
             "full_name": [f"Person {i}" for i in range(10)]  # 10 unique / 10 rows = 1.0 > 0.5
