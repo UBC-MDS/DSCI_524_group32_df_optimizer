@@ -248,3 +248,6 @@ cython_debug/
 
 # Hatch-VCS
 _version.py
+
+/.quarto/
+**/*.quarto_ipynb

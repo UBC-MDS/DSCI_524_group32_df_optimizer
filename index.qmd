@@ -1,0 +1,10 @@
+---
+title: "Dataframe Optimizer"
+---
+
+Welcome to the **Dataframe Optimizer** package.
+
+This package provides tools for optimizing pandas DataFrames by reducing
+memory usage while preserving data types.
+
+Use the **Reference** tab to explore the API.
