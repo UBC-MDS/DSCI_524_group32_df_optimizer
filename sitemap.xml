@@ -2,38 +2,42 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://UBC-MDS.github.io/DSCI_524_group32_df_optimizer/CONDUCT.html</loc>
-    <lastmod>2026-01-23T23:19:11.318Z</lastmod>
+    <lastmod>2026-01-23T23:32:47.875Z</lastmod>
   </url>
   <url>
     <loc>https://UBC-MDS.github.io/DSCI_524_group32_df_optimizer/reference/optimize_dataframe.optimize_dataframe.html</loc>
-    <lastmod>2026-01-23T23:19:50.198Z</lastmod>
+    <lastmod>2026-01-23T23:33:23.913Z</lastmod>
   </url>
   <url>
     <loc>https://UBC-MDS.github.io/DSCI_524_group32_df_optimizer/reference/index.html</loc>
-    <lastmod>2026-01-23T23:19:50.172Z</lastmod>
+    <lastmod>2026-01-23T23:33:23.887Z</lastmod>
   </url>
   <url>
-    <loc>https://UBC-MDS.github.io/DSCI_524_group32_df_optimizer/CONTRIBUTING.html</loc>
-    <lastmod>2026-01-23T23:19:11.318Z</lastmod>
-  </url>
-  <url>
-    <loc>https://UBC-MDS.github.io/DSCI_524_group32_df_optimizer/CHANGELOG.html</loc>
-    <lastmod>2026-01-23T23:19:11.318Z</lastmod>
+    <loc>https://UBC-MDS.github.io/DSCI_524_group32_df_optimizer/index.html</loc>
+    <lastmod>2026-01-23T23:32:47.876Z</lastmod>
   </url>
   <url>
     <loc>https://UBC-MDS.github.io/DSCI_524_group32_df_optimizer/DEVELOPMENT.html</loc>
-    <lastmod>2026-01-23T23:19:11.318Z</lastmod>
+    <lastmod>2026-01-23T23:32:47.875Z</lastmod>
+  </url>
+  <url>
+    <loc>https://UBC-MDS.github.io/DSCI_524_group32_df_optimizer/CHANGELOG.html</loc>
+    <lastmod>2026-01-23T23:32:47.875Z</lastmod>
+  </url>
+  <url>
+    <loc>https://UBC-MDS.github.io/DSCI_524_group32_df_optimizer/CONTRIBUTING.html</loc>
+    <lastmod>2026-01-23T23:32:47.875Z</lastmod>
   </url>
   <url>
     <loc>https://UBC-MDS.github.io/DSCI_524_group32_df_optimizer/reference/optimize_numeric.optimize_numeric.html</loc>
-    <lastmod>2026-01-23T23:19:50.203Z</lastmod>
+    <lastmod>2026-01-23T23:33:23.918Z</lastmod>
   </url>
   <url>
     <loc>https://UBC-MDS.github.io/DSCI_524_group32_df_optimizer/reference/optimize_special.optimize_special.html</loc>
-    <lastmod>2026-01-23T23:19:50.213Z</lastmod>
+    <lastmod>2026-01-23T23:33:23.928Z</lastmod>
   </url>
   <url>
     <loc>https://UBC-MDS.github.io/DSCI_524_group32_df_optimizer/reference/optimize_categorical.optimize_categorical.html</loc>
-    <lastmod>2026-01-23T23:19:50.208Z</lastmod>
+    <lastmod>2026-01-23T23:33:23.923Z</lastmod>
   </url>
 </urlset>
