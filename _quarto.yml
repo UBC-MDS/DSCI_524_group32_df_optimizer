@@ -21,11 +21,11 @@ quartodoc:
     - title: Main API
       desc: Main user-facing function.
       contents:
-        - optimize_dataframe.optimize_dataframe
+        - group_32.optimize_dataframe.optimize_dataframe
 
     - title: Column optimizers
       desc: Helpers for optimizing different column types.
       contents:
-        - optimize_numeric.optimize_numeric
-        - optimize_categorical.optimize_categorical
-        - optimize_special.optimize_special
+        - group_32.optimize_numeric.optimize_numeric
+        - group_32.optimize_categorical.optimize_categorical
+        - group_32.optimize_special.optimize_special
