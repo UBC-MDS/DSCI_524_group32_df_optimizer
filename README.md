@@ -52,9 +52,11 @@ DataFrame Memory Optimizer builds on these ideas by combining them into a single
 
 # Developer Documentation
 The following sections describe how developers, instructors, and TAs can set up the project locally, run tests, and build/deploy documentation.
-## 1. Set Up the Development Environment
+## 1. Clone the repository and set Up the Development Environment
 This project uses conda for environment management. To set up the development environment, run:
 ```bash
+git clone git@github.com:UBC-MDS/DSCI_524_group32_df_optimizer.git
+cd DSCI_524_group32_df_optimizer
 conda env create -f environment.yml
 conda activate dataframe-memory-optimizer
 ```
