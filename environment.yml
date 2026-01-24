@@ -1,4 +1,4 @@
-name: 524
+name: dataframe-memory-optimizer
 channels:
   - conda-forge
 dependencies:
@@ -15,12 +15,13 @@ dependencies:
   - pytest-cov
 
   # packaging / build tools
-  - build
-  - hatch
-  - twine
-  - wheel
-
-  # install this package in editable mode
-  # so that our package is automatically installed in the env, no need to run pip install -e .
+  - quarto
+ 
+ # PyPI-only tools (must be installed via pip)
   - pip:
+      - build
+      - hatch
+      - twine
+      - wheel
+      - quartodoc
       - -e .

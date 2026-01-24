@@ -50,6 +50,51 @@ Pandas provides low-level tools related to memory optimization, such as pd.to_nu
 
 DataFrame Memory Optimizer builds on these ideas by combining them into a single, reusable interface that applies consistent heuristics and reports its decisions, making DataFrame memory optimization easier, safer, and more reproducible.
 
+# Developer Documentation
+The following sections describe how developers, instructors, and TAs can set up the project locally, run tests, and build/deploy documentation.
+## 1. Set Up the Development Environment
+This project uses conda for environment management. To set up the development environment, run:
+```bash
+conda env create -f environment.yml
+conda activate dataframe-memory-optimizer
+```
+The environment.yml file contains all required dependencies for development, testing, and documentation.
+## 2. Install the Package 
+To install the package in development mode, navigate to the project root directory and run:
+```bash
+pip install -e .
+```
+This allows you to make changes to the source code and have them reflected immediately without reinstalling the package.
+## 3. Run Tests
+To run the test suite, use pytest. From the project root directory, execute:
+```bash
+pytest 
+```
+This will discover and run all tests located in the tests/ directory.
+## 4. Build and Serve Documentation
+The project uses quartodoc for documentation. To build and serve the documentation locally, run:
+```bash
+quarto render
+```
+This will generate the documentation in the docs/ directory. You can then open the generated HTML files in your web browser to view the documentation.
+## 5. Deploy Documentation (Automated)
+Documentation deployment is fully automated via GitHub Actions.
+
+Deployment workflow :-
+
+- Triggered automatically on pushes to the main branch
+- Builds documentation using Quarto
+- Deploys the site to GitHub Pages
+
+The live documentation is available at:
+```bash
+https://ubc-mds.github.io/DSCI_524_group32_df_optimizer/
+```
+## How the Package Fits in the Python Ecosystem
+
+Pandas provides low-level tools for memory optimization (e.g., pd.to_numeric(..., downcast=...), DataFrame.convert_dtypes()), but these require manual orchestration and offer limited transparency.
+
+DataFrame Memory Optimizer combines these tools into a single, opinionated workflow with clear diagnostics, making memory optimization easier, safer, and more reproducible.
 ## Contributors
 
 Mohammed Ibrahim
