@@ -4,7 +4,6 @@ import pytest
 
 from group_32.optimize_dataframe import optimize_dataframe
 
-
 @pytest.fixture
 def df_mixed():
     """A small mixed-type DataFrame that should trigger numeric + categorical + analysis."""
@@ -138,3 +137,30 @@ def test_optimize_dataframe_calls_helpers(monkeypatch, df_mixed, capsys):
     assert calls["cat"] == 1, f"Expected optimize_categorical to be called once, got {calls['cat']}."
     assert calls["spec"] == 1, f"Expected optimize_special to be called once, got {calls['spec']}."
     assert "Special Column Analysis" in captured
+
+def test_optimize_dataframe_with_all_column_types(capsys):
+    """Test optimize_dataframe with a DataFrame containing all column types."""
+    df = pd.DataFrame({
+        "customer_id": range(100),  # High cardinality - should be flagged as ID
+        "region": ["US", "CA", "US", "US"] * 25,  # Low cardinality - should become category
+        "quantity": np.array([1, 2, 3, 4] * 25, dtype=np.int64),  # Should be downcast
+        "price": np.array([10.5, 12.0, 9.99, 11.25] * 25, dtype=np.float64),  # Should become float32
+        "latitude": [37.7749] * 100,  # Should be flagged as coordinate
+        "description": [f"Item {i}" for i in range(100)],  # High cardinality text
+        "status": pd.Categorical(["active", "inactive"] * 50)  # Already category
+    })
+    
+    result = optimize_dataframe(df)
+    captured = capsys.readouterr().out
+    
+    # Check type conversions
+    assert str(result["region"].dtype) == "category"
+    assert str(result["price"].dtype) == "float32"
+    assert str(result["quantity"].dtype) in {"int8", "int16", "int32"}
+    assert str(result["status"].dtype) == "category"
+    
+    # Check that special columns are identified in output
+    assert "customer_id: Identified as potential Unique ID" in captured
+    assert "latitude: Identified as geographic coordinate column" in captured
+    assert "description: Identified as high-cardinality text column" in captured
+    assert "status: Identified as categorical or ordinal data" in captured

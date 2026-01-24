@@ -3,7 +3,6 @@ import numpy as np
 from group_32.optimize_numeric import optimize_numeric
 import pytest
 
-
 def test_integer_columns_are_downcasted_only():
     """
     Ensure that integer columns are downcasted, and that the function
@@ -340,6 +339,22 @@ def test_inf_values_in_floats():
     assert np.isinf(result["float_col"]).sum() == 2
     assert result["float_col"].iloc[1] == np.inf
     assert result["float_col"].iloc[2] == -np.inf
+
+def test_optimize_numeric_verbose_false_no_output(capsys):
+    """Test that verbose=False suppresses output."""
+    df = pd.DataFrame({
+        "int_col": np.array([1, 2, 3], dtype=np.int64),
+        "float_col": np.array([1.5, 2.5, 3.5], dtype=np.float64)
+    })
+    
+    result = optimize_numeric(df, verbose=False)
+    captured = capsys.readouterr()
+    
+    # Should not print anything when verbose=False
+    assert captured.out == ""
+    # But should still perform optimization
+    assert result["int_col"].dtype == np.int8
+    assert result["float_col"].dtype == np.float32
 
 
 def test_optimize_numeric_negative_integers_verbose(capsys):

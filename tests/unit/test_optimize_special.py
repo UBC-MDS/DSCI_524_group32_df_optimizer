@@ -2,7 +2,6 @@ import pandas as pd
 import pytest
 from group_32.optimize_special import optimize_special
 
-
 def test_optimize_special_raises_type_error_for_non_dataframe():
     with pytest.raises(TypeError, match="df must be a pandas DataFrame"):
         optimize_special([1, 2, 3])
@@ -110,7 +109,7 @@ def test_optimize_special_dataframe_not_modified():
     pd.testing.assert_frame_equal(df, df_before)
 
 
-# NEW TEST 1: All-null column skip logic
+#All-null column skip logic
 def test_optimize_special_skips_all_null_columns(capsys):
     """Test that columns with all NaN/None values are silently skipped."""
     df = pd.DataFrame(
@@ -127,7 +126,7 @@ def test_optimize_special_skips_all_null_columns(capsys):
     assert "all_null_col" not in captured
 
 
-# NEW TEST 3: Coordinate column with whitespace in name
+# Coordinate column with whitespace in name
 def test_optimize_special_coordinate_with_whitespace(capsys):
     """Test that coordinate column names with leading/trailing whitespace are recognized."""
     df = pd.DataFrame(
@@ -143,7 +142,7 @@ def test_optimize_special_coordinate_with_whitespace(capsys):
     assert " lon : Identified as geographic coordinate column." in captured
 
 
-# NEW TEST 4a: Unique ID threshold boundary - exactly at 0.9
+#Unique ID threshold boundary - exactly at 0.9
 def test_optimize_special_unique_id_boundary_at_threshold(capsys):
     """Test unique ID detection when ratio is exactly 0.9 (should trigger)."""
     df = pd.DataFrame(
@@ -157,7 +156,7 @@ def test_optimize_special_unique_id_boundary_at_threshold(capsys):
     assert "user_id: Identified as potential Unique ID (high cardinality)." in captured
 
 
-# NEW TEST 4b: Unique ID threshold boundary - just below 0.9
+#Unique ID threshold boundary - just below 0.9
 def test_optimize_special_unique_id_boundary_below_threshold(capsys):
     """Test unique ID detection when ratio is below 0.9 (should NOT trigger)."""
     df = pd.DataFrame(
@@ -172,7 +171,7 @@ def test_optimize_special_unique_id_boundary_below_threshold(capsys):
     assert "product_id: Identified as potential Unique ID (high cardinality)." not in captured
 
 
-# NEW TEST 4c: Text entity threshold boundary - exactly at 0.5
+#Text entity threshold boundary - exactly at 0.5
 def test_optimize_special_text_entity_boundary_at_threshold(capsys):
     """Test text entity detection when ratio is exactly 0.5 (should NOT trigger since check is > 0.5)."""
     df = pd.DataFrame(
@@ -187,7 +186,7 @@ def test_optimize_special_text_entity_boundary_at_threshold(capsys):
     assert "description: Identified as high-cardinality text column." not in captured
 
 
-# NEW TEST 4d: Text entity threshold boundary - just above 0.5
+#Text entity threshold boundary - just above 0.5
 def test_optimize_special_text_entity_boundary_above_threshold(capsys):
     """Test text entity detection when ratio is just above 0.5 (should trigger)."""
     df = pd.DataFrame(
@@ -201,7 +200,7 @@ def test_optimize_special_text_entity_boundary_above_threshold(capsys):
     assert "comment: Identified as high-cardinality text column." in captured
 
 
-# NEW TEST 6: Numeric columns with high cardinality should NOT be flagged as text entities
+#Numeric columns with high cardinality should NOT be flagged as text entities
 def test_optimize_special_numeric_high_cardinality_not_flagged_as_text(capsys):
     """Test that numeric columns with high cardinality are not flagged as text entities."""
     df = pd.DataFrame(
@@ -217,3 +216,14 @@ def test_optimize_special_numeric_high_cardinality_not_flagged_as_text(capsys):
     assert "Special Column Analysis" in captured
     assert "price: Identified as high-cardinality text column." not in captured
     assert "quantity: Identified as high-cardinality text column." not in captured
+
+def test_optimize_special_mixed_case_coordinate_names(capsys):
+    """Test that coordinate columns with mixed case names are recognized."""
+    df = pd.DataFrame({
+        "Latitude": [49.28, 49.29, 49.30],
+        "LONGITUDE": [-123.12, -123.11, -123.10],
+        "LoN": [-122.41, -122.42, -122.43]
+    })
+    
+    optimize_special(df)
+    captured = capsys.readouterr().out

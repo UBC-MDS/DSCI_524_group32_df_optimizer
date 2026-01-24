@@ -133,3 +133,28 @@ def test_optimize_categrical_empty_and_special_cases():
     # Should handle NaN appropriately
 
     assert str(output_nan["category"].dtype) == "category"
+
+def test_optimize_categorical_single_value_column(capsys):
+    """Test that columns with only one unique value are converted to category."""
+    df = pd.DataFrame({
+        "all_same": ["A"] * 100,  # 1 unique / 100 rows = 0.01
+        "also_same": ["XYZ"] * 100,  # 1 unique / 100 rows = 0.01
+        "varied": [f"item_{i}" for i in range(100)]  # 100 unique / 100 rows = 1.0
+    })
+    
+    output = optimize_categorical(df, max_unique_ratio=0.5)
+    
+    # Single-value columns should be converted (ratio = 0.01 << 0.5)
+    assert str(output["all_same"].dtype) == "category"
+    assert str(output["also_same"].dtype) == "category"
+    
+    # High-cardinality column should NOT be converted (ratio = 1.0 > 0.5)
+    assert not pd.api.types.is_categorical_dtype(output["varied"])
+    
+    # Verify values are preserved
+    assert output["all_same"].unique().tolist() == ["A"]
+    assert output["also_same"].unique().tolist() == ["XYZ"]
+    
+    # Should report 2 columns converted
+    captured = capsys.readouterr()
+    assert "Converted 2 column(s) to 'category' dtype." in captured.out
