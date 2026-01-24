@@ -4,8 +4,6 @@ import pandas as pd
 import pytest
 import re
 
-@pytest.mark.filterwarnings("ignore")
-
 def test_optimize_categorical_converts_columns(capsys):
 
     df = pd.DataFrame(

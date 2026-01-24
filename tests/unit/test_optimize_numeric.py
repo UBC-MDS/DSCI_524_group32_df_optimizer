@@ -3,7 +3,6 @@ import numpy as np
 from group_32.optimize_numeric import optimize_numeric
 import pytest
 
-
 def test_integer_columns_are_downcasted_only():
     """
     Ensure that integer columns are downcasted, and that the function

@@ -2,9 +2,6 @@ import pandas as pd
 import pytest
 from group_32.optimize_special import optimize_special
 
-@pytest.mark.filterwarnings("ignore")
-
-
 def test_optimize_special_raises_type_error_for_non_dataframe():
     with pytest.raises(TypeError, match="df must be a pandas DataFrame"):
         optimize_special([1, 2, 3])

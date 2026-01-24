@@ -4,8 +4,6 @@ import pytest
 
 from group_32.optimize_dataframe import optimize_dataframe
 
-@pytest.mark.filterwarnings("ignore")
-
 @pytest.fixture
 def df_mixed():
     """A small mixed-type DataFrame that should trigger numeric + categorical + analysis."""
