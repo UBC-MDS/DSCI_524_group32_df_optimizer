@@ -1,4 +1,8 @@
 # Welcome to Our DataFrame Memory Optimizer
+|        |        |
+|--------|--------|
+| Package | [![Latest PyPI Version](https://img.shields.io/pypi/v/DSCI_524_group32_df_optimizer.svg)](https://pypi.org/project/DSCI_524_group32_df_optimizer/) [![Supported Python Versions](https://img.shields.io/pypi/pyversions/DSCI_524_group32_df_optimizer.svg)](https://pypi.org/project/DSCI_524_group32_df_optimizer/)  |
+| Meta   | [![Code of Conduct](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](CODE_OF_CONDUCT.md) |
 
 This is a collaborative project developed as part of DSCI 524: Collaborative Software Development. 
 
@@ -43,12 +47,6 @@ Categorical optimizer used by `optimize_dataframe()`. It converts low-cardinalit
 
 `analyze_special_columns(df)`
 Diagnostics and transparency helper used by `optimize_dataframe()`. It identifies columns that may require special handling (e.g., high-cardinality IDs, coordinate columns, free-text fields) and reports them to help users understand optimization decisions. This function does not modify the DataFrame.
-
-## How the package fits in the Python Ecosystem
-
-Pandas provides low-level tools related to memory optimization, such as pd.to_numeric(..., downcast=...), DataFrame.convert_dtypes(), and DataFrame.memory_usage(deep=True). However, these tools require manual orchestration and do not provide a unified, opinionated workflow or clear diagnostics.
-
-DataFrame Memory Optimizer builds on these ideas by combining them into a single, reusable interface that applies consistent heuristics and reports its decisions, making DataFrame memory optimization easier, safer, and more reproducible.
 
 # Developer Documentation
 The following sections describe how developers, instructors, and TAs can set up the project locally, run tests, and build/deploy documentation.
