@@ -1,8 +1,9 @@
 # Welcome to Our DataFrame Memory Optimizer
 |        |        |
 |--------|--------|
-| Package | [![Latest PyPI Version](https://img.shields.io/pypi/v/DSCI_524_group32_df_optimizer.svg)](https://pypi.org/project/DSCI_524_group32_df_optimizer/) [![Supported Python Versions](https://img.shields.io/pypi/pyversions/DSCI_524_group32_df_optimizer.svg)](https://pypi.org/project/DSCI_524_group32_df_optimizer/)  |
-| Meta   | [![Code of Conduct](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](CODE_OF_CONDUCT.md) |
+| Testing | [![ci](https://github.com/UBC-MDS/DSCI_524_group32_df_optimizer/actions/workflows/build.yml/badge.svg)](https://github.com/UBC-MDS/DSCI_524_group32_df_optimizer/actions/workflows/build.yml) [![cd](https://github.com/UBC-MDS/DSCI_524_group32_df_optimizer/actions/workflows/deploy.yml/badge.svg)](https://github.com/UBC-MDS/DSCI_524_group32_df_optimizer/actions/workflows/deploy.yml) |
+| Package | [![TestPyPI](https://img.shields.io/badge/dynamic/json?url=https://test.pypi.org/pypi/DSCI-524-group32-df-optimizer/json&query=%24.info.version&label=TestPyPI&color=green)](https://test.pypi.org/project/DSCI-524-group32-df-optimizer/) [![GitHub release](https://img.shields.io/github/v/tag/UBC-MDS/DSCI_524_group32_df_optimizer?color=green)](https://github.com/UBC-MDS/DSCI-524-group32-df-optimizer/releases) [![Python Version](https://img.shields.io/badge/dynamic/json?url=https://test.pypi.org/pypi/DSCI-524-group32-df-optimizer/json&query=%24.info.requires_python&label=Python&color=green)](https://test.pypi.org/project/DSCI-524-group32-df-optimizer/) |
+| Meta   | [![Code of Conduct](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](CODE_OF_CONDUCT.md) [![License](https://img.shields.io/badge/dynamic/json?url=https://test.pypi.org/pypi/DSCI-524-group32-df-optimizer/json&query=%24.info.license_expression&label=License&color=green)](https://github.com/UBC-MDS/DSCI-524-group32-df-optimizer/blob/main/LICENSE)|
 
 This is a collaborative project developed as part of DSCI 524: Collaborative Software Development. 
 
