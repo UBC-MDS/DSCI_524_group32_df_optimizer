@@ -4,7 +4,7 @@
 
 [build-system]
 build-backend = "hatchling.build"
-requires = ["hatchling"]
+requires = ["hatchling", "hatch-vcs"]
 
 ################################################################################
 # Project Configuration
@@ -56,6 +56,7 @@ Download = "https://pypi.org/project/group-32/#files"
 dev = [
     "hatch",
     "pre-commit",
+    'hatch-vcs'
 ]
 
 docs = [
@@ -98,7 +99,8 @@ only-packages = true
 [tool.hatch.build.targets.wheel]
 packages = ["src/group_32"]
 
-
+[tool.hatch.version]
+source = "vcs"
 
 ######## Configure pytest for your test suite ########
 [tool.pytest.ini_options]
