@@ -27,11 +27,13 @@ def optimize_categorical(df: pd.DataFrame, max_unique_ratio: float = 0.5) -> pd.
     Example
     -------
     >>> import pandas as pd
+    >>>
     >>> data = {
-        'user_id': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-        'name': ['Alice', 'Bobby', 'Charles', 'Ally', 'Bob', 'Charlie', 'David', 'Alex', 'Ben', 'Cherry'],
-        'city': ['NYC', 'LA', 'NYC', 'Chicago', 'LA', 'NYC', 'LA', 'Chicago', 'NYC', 'LA'],
-        'status': ['active', 'inactive', 'active', 'active', 'inactive', 'active', 'inactive', 'active', 'active', 'inactive']}
+    ...     'user_id': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    ...     'name': ['Alice', 'Bobby', 'Charles', 'Ally', 'Bob', 'Charlie', 'David', 'Alex', 'Ben', 'Cherry'],
+    ...     'city': ['NYC', 'LA', 'NYC', 'Chicago', 'LA', 'NYC', 'LA', 'Chicago', 'NYC', 'LA'],
+    ...     'status': ['active', 'inactive', 'active', 'active', 'inactive', 'active', 'inactive', 'active', 'active', 'inactive']}
+    >>>
     >>> df = pd.DataFrame(data)
     >>> df.dtypes
     user_id  int64
@@ -41,7 +43,7 @@ def optimize_categorical(df: pd.DataFrame, max_unique_ratio: float = 0.5) -> pd.
     dtype: object
     
     >>> optimized_df = optimize_categorical(df, max_unique_ratio=0.5)
-    >>> Converted 2 column(s) to 'category' dtype.
+    ...     Converted 2 column(s) to 'category' dtype.
     
     >>> optimized_df.dtypes
     user_id  int64
