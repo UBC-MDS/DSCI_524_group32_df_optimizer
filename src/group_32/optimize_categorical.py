@@ -24,7 +24,7 @@ def optimize_categorical(df: pd.DataFrame, max_unique_ratio: float = 0.5) -> pd.
     pd.DataFrame
         The DataFrame with eligible string columns converted to category dtype.
 
-    Example
+    Examples
     -------
     >>> import pandas as pd
     >>>
