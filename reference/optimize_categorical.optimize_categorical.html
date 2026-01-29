@@ -231,14 +231,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <blockquote class="blockquote">
 <blockquote class="blockquote">
 <blockquote class="blockquote">
-<p>import pandas as pd data = { ‘user_id’: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], ‘name’: [‘Alice’, ‘Bobby’, ‘Charles’, ‘Ally’, ‘Bob’, ‘Charlie’, ‘David’, ‘Alex’, ‘Ben’, ‘Cherry’], ‘city’: [‘NYC’, ‘LA’, ‘NYC’, ‘Chicago’, ‘LA’, ‘NYC’, ‘LA’, ‘Chicago’, ‘NYC’, ‘LA’], ‘status’: [‘active’, ‘inactive’, ‘active’, ‘active’, ‘inactive’, ‘active’, ‘inactive’, ‘active’, ‘active’, ‘inactive’]} df = pd.DataFrame(data) df.dtypes user_id int64 name object city object status object dtype: object</p>
+<p>import pandas as pd</p>
+<p>data = { … ‘user_id’: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], … ‘name’: [‘Alice’, ‘Bobby’, ‘Charles’, ‘Ally’, ‘Bob’, ‘Charlie’, ‘David’, ‘Alex’, ‘Ben’, ‘Cherry’], … ‘city’: [‘NYC’, ‘LA’, ‘NYC’, ‘Chicago’, ‘LA’, ‘NYC’, ‘LA’, ‘Chicago’, ‘NYC’, ‘LA’], … ‘status’: [‘active’, ‘inactive’, ‘active’, ‘active’, ‘inactive’, ‘active’, ‘inactive’, ‘active’, ‘active’, ‘inactive’]}</p>
+<p>df = pd.DataFrame(data) df.dtypes user_id int64 name object city object status object dtype: object</p>
 </blockquote>
 </blockquote>
 </blockquote>
 <blockquote class="blockquote">
 <blockquote class="blockquote">
 <blockquote class="blockquote">
-<p>optimized_df = optimize_categorical(df, max_unique_ratio=0.5) Converted 2 column(s) to ‘category’ dtype.</p>
+<p>optimized_df = optimize_categorical(df, max_unique_ratio=0.5) … Converted 2 column(s) to ‘category’ dtype.</p>
 </blockquote>
 </blockquote>
 </blockquote>
