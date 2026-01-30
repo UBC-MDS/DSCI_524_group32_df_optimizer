@@ -48,7 +48,11 @@ Categorical optimizer used by `optimize_dataframe()`. It converts low-cardinalit
 
 `analyze_special_columns(df)`
 Diagnostics and transparency helper used by `optimize_dataframe()`. It identifies columns that may require special handling (e.g., high-cardinality IDs, coordinate columns, free-text fields) and reports them to help users understand optimization decisions. This function does not modify the DataFrame.
-
+# Installing the Package
+You can install the DataFrame Memory Optimizer package directly from TestPyPI using pip. Run the following command in your terminal:
+```bash
+pip install -i https://test.pypi.org/simple/ DSCI-524-group32-df-optimizer
+```
 # Developer Documentation
 The following sections describe how developers, instructors, and TAs can set up the project locally, run tests, and build/deploy documentation.
 ## 1. Clone the repository and set Up the Development Environment
@@ -88,9 +92,8 @@ Deployment workflow :-
 - Deploys the site to GitHub Pages
 
 The live documentation is available at:
-```bash
 https://ubc-mds.github.io/DSCI_524_group32_df_optimizer/
-```
+
 ## How the Package Fits in the Python Ecosystem
 
 Pandas provides low-level tools for memory optimization (e.g., pd.to_numeric(..., downcast=...), DataFrame.convert_dtypes()), but these require manual orchestration and offer limited transparency.
