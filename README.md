@@ -44,7 +44,9 @@ The package is designed around a simple, reproducible workflow: users call optim
 
 `optimize_categorical(df, max_unique_ratio=0.5)` Categorical optimizer used by `optimize_dataframe()`. It converts low-cardinality string/object columns to pandas category dtype based on the ratio of unique values to total rows. This is especially effective for repeated labels like status codes, regions, or categories.
 
-`analyze_special_columns(df)` Diagnostics and transparency helper used by `optimize_dataframe()`. It identifies columns that may require special handling (e.g., high-cardinality IDs, coordinate columns, free-text fields) and reports them to help users understand optimization decisions. This function does not modify the DataFrame. \# Installing the Package You can install the DataFrame Memory Optimizer package directly from TestPyPI using pip. Run the following command in your terminal:
+`analyze_special_columns(df)` Diagnostics and transparency helper used by `optimize_dataframe()`. It identifies columns that may require special handling (e.g., high-cardinality IDs, coordinate columns, free-text fields) and reports them to help users understand optimization decisions. This function does not modify the DataFrame. 
+# Installing the Package 
+You can install the DataFrame Memory Optimizer package directly from TestPyPI using pip. Run the following command in your terminal:
 
 ``` bash
 pip install -i https://test.pypi.org/simple/ DSCI-524-group32-df-optimizer

@@ -2,7 +2,7 @@ name: deploy-test-pypi
 
 on:
   push:
-    branches: [main]
+    #branches: [main]
     tags: 
       - "v*" 
 
@@ -35,7 +35,12 @@ jobs:
 
       - name: Run tests with coverage
         run: |
-          pytest --cov --cov-report=term --cov-branch
+          pytest --cov --cov-report=xml --cov-branch
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
 
   build-deploy:
     needs: unit-test-and-lint
@@ -62,6 +67,7 @@ jobs:
       - name: Publish to TestPyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
+        user: __token__
           repository-url: https://test.pypi.org/legacy/
           password: ${{ secrets.TEST_PYPI_API_TOKEN }}
           verbose: true
