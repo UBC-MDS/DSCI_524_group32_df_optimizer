@@ -32,7 +32,7 @@ jobs:
 
       - name: Run tests with coverage
         run: |
-          pytest --cov=DSCI_524_group32_df_optimizer --cov-report=xml --cov-branch
+          pytest --cov=group_32 --cov-report=xml --cov-branch
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v5
