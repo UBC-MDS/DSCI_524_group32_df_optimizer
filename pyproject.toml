@@ -104,7 +104,7 @@ source = "vcs"
 raw-options = { version_scheme = "no-guess-dev", local_scheme = "no-local-version" }
 
 [tool.hatch.build.hooks.vcs]
-version-file = "src/DSCI_524_group32_df_optimizer/__version__.py"
+version-file = "src/group_32/__version__.py"
 
 ######## Configure pytest for your test suite ########
 [tool.pytest.ini_options]
@@ -161,8 +161,7 @@ features = [
 ]
 
 [[tool.hatch.envs.test.matrix]]
-#python = ["3.10", "3.11", "3.12", "3.13"]
-python = "3.12"
+python = ["3.10", "3.11", "3.12", "3.13"]
 
 [tool.hatch.envs.test.scripts]
 run = "pytest {args:--cov=group_32 --cov-report=term-missing --cov-report=xml}"
