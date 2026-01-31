@@ -1,0 +1,206 @@
+---
+title: df_optimizer Tutorial
+format:
+  html:
+    toc: true
+    toc-depth: 3
+---
+
+## Overview
+Thank you for choosing `df_optimizer`! Our custom function aims to reduce pandas DataFrame memory usage **safely** while preserving the original values.
+
+**Primary (recommended) function**
+
+`optimize_dataframe(df)`: runs the full safe optimization pipeline.
+
+**Modular (optional) functions**
+
+`optimize_numeric(df, verbose=True)`: downcasts numeric columns where safe.
+
+`optimize_categorical(df, max_unique_ratio=0.5)`: converts eligible string/object columns to `category`.
+
+`optimize_special(df)`: prints a diagnostic report for “special” columns (IDs, coordinates, high-cardinality text). **Does not modify the DataFrame.**
+
+Below is the tutorial that demonstrates **all 4 functions** with runnable examples with sample data.
+
+## Installation Reminder
+
+Detailed project set up steps are in the README file
+
+```bash
+pip install -i https://test.pypi.org/simple/ DSCI-524-group32-df-optimizer
+```
+Optional check to confirm installation
+
+```bash
+python -c "import group_32; print('Imported group_32 successfully')"
+```
+
+## Imports
+
+```python
+import pandas as pd
+import numpy as np
+
+from group_32 import (
+    optimize_dataframe,
+    optimize_numeric,
+    optimize_categorical,
+    optimize_special,
+)
+```
+
+## Creating Sample Data
+
+```python
+n = 1000
+
+df = pd.DataFrame({
+    "customer_id": np.arange(1, n + 1),                          # high-cardinality ID-like column
+    "status": np.random.choice(["pending", "shipped"], size=n),  # low-cardinality strings
+    "city": np.random.choice(["Vancouver", "Whistler", "Squamish"], size=n),
+    "quantity": np.random.randint(0, 120, size=n),               # small integers
+    "price": np.random.normal(50, 10, size=n),                   # floats (often float64 initially)
+    "latitude": np.repeat(49.2827, n),                           # coordinate-like column
+    "longitude": np.repeat(-123.1207, n),                        # coordinate-like column
+    "notes": [f"free text row {i}" for i in range(n)],           # high-cardinality text
+})
+
+df.head()
+```
+
+## Our Recommended Primary Workflow 
+
+optimize_dataframe(df) is the main user-facing function. It:
+
+1. makes a copy (does not mutate your input)
+
+2. downcasts numeric columns using optimize_numeric,
+
+3. converts eligible string columns using optimize_categorical,
+
+4. prints a “special columns” report using optimize_special (no mutation).
+
+
+#### Purpose of our main function - optimize_dataframe(df)
+Run the full optimization pipeline and compare dtypes before vs after.
+
+
+```python
+
+optimized = optimize_dataframe(df)
+
+pd.DataFrame({"original": df.dtypes, "optimized": optimized.dtypes})
+```
+
+#### For comparing memory usage before and after
+```python
+after_mb = optimized.memory_usage(deep=True).sum() / 1024**2
+(after_mb, (before_mb - after_mb) / before_mb)
+```
+#### Expected outcome
+1. `quantity` downcasts to a smaller integer dtype (e.g., `int8` or `int16`),
+
+2. `price` downcasts to `float32` (possible minor precision differences),
+
+3. `status` and `city` become `category`,
+
+4. `customer_id` and notes remain unchanged (but may be reported as special).
+
+
+## Modular Functions
+Usage on functions that were being called in `optimize_dataframe(df)` 
+
+Use these if you want only part of the pipeline.
+
+#### `optimize_numeric(df, verbose=True)` 
+Downcasts integer and float columns to smaller dtypes where possible.
+
+```python
+num_only = optimize_numeric(df, verbose=True)
+
+pd.DataFrame({
+    "original": df.dtypes, 
+    "num_only": num_only.dtypes
+})
+```
+**Expected output**
+
+A two-column table comparing dtypes before and after numeric optimization:
+
+- Integer columns are downcast to the smallest safe integer dtype (e.g. `int64` → `int8` or `int16`)
+- Floating-point columns may be downcast from `float64` to `float32`
+- Non-numeric columns are unchanged
+- When `verbose=True`, informational messages are printed describing each downcast
+
+Example (schematic):
+
+| column      | original | num_only |
+|-------------|----------|----------|
+| customer_id | int64    | int32    |
+| status      | object   | object   |
+| city        | object   | object   |
+| quantity    | int64    | int8     |
+| price       | float64  | float32  |
+| latitude    | float64  | float32  |
+| longitude   | float64  | float32  |
+| notes       | object   | object   |
+
+#### `optimize_categorical(df, max_unique_ratio=0.5)` 
+Converts eligible object columns to category when: (number of unique values) / (number of rows) <= max_unique_ratio
+
+Note that: 
+Lower max_unique_ratio -> fewer columns become category (more conservative).
+Higher max_unique_ratio -> more columns become category (more aggressive).
+
+```python
+cat_default = optimize_categorical(df, max_unique_ratio=0.5)
+
+pd.DataFrame({
+    "original": df.dtypes, 
+    "cat_default": cat_default.dtypes
+})
+```
+**Expected output**
+
+A two-column table comparing dtypes before and after optimization:
+
+- Low-cardinality string columns (e.g. `status`, `city`) change from `object` to `category`
+- High-cardinality string columns (e.g. free-text fields) remain `object`
+- Numeric columns are unchanged by this function
+
+Example (schematic):
+
+| column        | original   | cat_default |
+|---------------|------------|-------------|
+| customer_id   | int64      | int64       |
+| status        | object     | category    |
+| city          | object     | category    |
+| quantity      | int64      | int64       |
+| price         | float64    | float64     |
+| latitude      | float64    | float64     |
+| longitude     | float64    | float64     |
+| notes         | object     | object      |
+
+#### `optimize_special(df)`
+
+`optimize_special(df)` **does not modify the DataFrame**.  
+Instead, it prints a **diagnostic report** and returns `None`.
+
+This diagnostic helps you:
+
+1. Spot columns that look like IDs (`*_id`, `uuid`, `key`) with very high cardinality  
+2. Identify coordinate-like columns (`lat`, `latitude`, `lon`, `longitude`)  
+3. Flag high-cardinality text columns where converting to `category` would not be beneficial  
+
+```python
+optimize_special(df)
+```
+
+**Expected output**
+
+A summary of columns detected as ID-like, along with their number of unique values
+
+A list of coordinate columns detected by name and value patterns
+
+A list of high-cardinality text columns, with guidance on why they were not converted
