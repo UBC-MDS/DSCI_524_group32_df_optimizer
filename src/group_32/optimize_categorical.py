@@ -96,7 +96,7 @@ def optimize_categorical(df: pd.DataFrame, max_unique_ratio: float = 0.5) -> pd.
         n_col = df_copy[col]
 
         if n_col.isnull().all(): #if the column is empty, terminate the current loop
-            break
+            continue
 
         n_unique = n_col.nunique(dropna=False)
         ratio = n_unique / n_rows
