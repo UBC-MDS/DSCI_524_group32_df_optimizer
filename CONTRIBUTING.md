@@ -104,3 +104,35 @@ Before you submit a pull request, check that it meets these guidelines:
    new functionality into a function with a docstring.
 3. Your pull request will automatically be checked by the full test suite.
    It needs to pass all of them before it can be considered for merging.
+
+## Development Tools and Practices
+
+The current project applies modern software tools and organizational practices to ensure quality, reproducibility and effective collaboration between each member of the team.
+
+### Used Tools and Infrastructures
+
+- **GitHub** was used as main tool for version control and communication. In order to reduce errors, branch-method and  Pull Requests (PR) were created effectively.
+
+- **GitHub Issues and Project Boards** managed the division of the tasks, ensuring an even distribution of the workload and tracking of the milestones projects.
+
+- **Continuous Integration (CI)** was constantly implemented, running tests automatically and ensuring a correct functionality of the new branches before merging in the main.
+
+- **pytest** automated testing helped validate the functionality of the functions
+
+- **Environment Management** was ensured through `environment.yml` to ensure reproducibility across development environments
+
+- **Documentation** was maintained using Quarto files in order to provide a clear guide of usage for future users.
+
+- **Netfly** was used for the Milestone 4, to automatically deploy the project documentation website: whenever a change was pushed to the repository it triggered a new site build, ensuring a synchronized documentation.
+
+- **Gitflow Workflow** principles were applied to structure development, improving code stability and supported parallel development.
+
+### Organizational Practices
+
+- The collaborators demonstrate a consistent usage of **branching** strategy that ensured a clear and well managed workflow. Before merging into `main`, at least one collaborator is required to review the PR and provide a constructive feedback or suggestion whenever needed.
+
+- Clear guidelines of the code of conduct support and shape a clear collaboration.
+
+### Scaling the Project
+
+If this project were scaled to a larger or production-level application, additional tools and practices would be required. These include stronger code reviews, more tests, versioned releases, and better dependency management. Automated deployment and CI/CD pipelines would help maintain reliability as the project grows.
