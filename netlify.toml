@@ -1,0 +1,3 @@
+[build]
+command = "python -m pip install --upgrade pip && pip install -e '.[docs]' && pip install quartodoc && quartodoc build --verbose && quarto render"
+publish = "docs"
