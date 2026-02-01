@@ -20,7 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Quarto-based documentation website with usage examples and API references.
 - added tests for functions to test the workflow deployment automation.
 
-## [0.1.5] - 2026-02-01
+## [0.1.5] - 2026-01-27
 - Automated version release and deployment to TestPyPI via GitHub Actions upon merging to main branch.
 - Updated documentation with installation instructions from TestPyPI.
 - addressed issues from peer reviews and improved error handling.
